@@ -1,27 +1,31 @@
 require 'ruby2d'
 
-set title: 'Golf Med Vänner'
+set title: 'Golf'
 set width: 1024
 set height: 768
 set background: 'green'
 
 class Ball
   attr_accessor :x , :y, :velocity, :angle
-
+  HEIGHT = 25
   def initialize(x_init, y_init)
     @x = x_init
     @y = y_init
     @velocity = 0;
     @angle = 0;
     @shape = Circle.new(x: @x, y: @y,
-    radius: 25, color: 'white')
+    radius: HEIGHT, color: 'white')
   end
 
   def move
-    @x = @x + @velocity*cos(@angle)
-    @y = @y + @velocity*sin(@angle)
+    @x = @x + @velocity*Math.cos(@angle)*0.9
+    @y = @y + @velocity*Math.sin(@angle)*0.9
     @shape.x = @x
     @shape.y = @y
+
+    if hit_bottom? || hit_top?
+      @velocity = -@velocity
+    end
   end
 
   def hit_bottom?
@@ -46,19 +50,33 @@ class Hole
   end
 end
 
-velocity_x = 0
-velocity_y = 0
-acceleration = 0.5
-friction = 0.97
-
 golfball = Ball.new(300,300)
 hole = Hole.new(400,400)
 
+xd = 0
+yd = 0
+xu = 0
+yu = 0
+
 
 on :mouse_down do |event|
- 
+
+  xd = event.x
+  yd = event.y
 
 end
+
+on :mouse_up do |event|
+  xu = event.x
+  yu = event.y
+
+  golfball.velocity = Math.sqrt((xu-xd)^2+(yu-yd)^2)*0.5
+  golfball.angle = Math.atan((yu-yd)/(xu-xd))
+
+
+
+end
+
 
 update do
   golfball.move
