@@ -18,10 +18,12 @@ class Ball
   end
 
   def move
-    @x = @x + @velocity*Math.cos(@angle)*0.9
-    @y = @y + @velocity*Math.sin(@angle)*0.9
+    @x = @x + @velocity*Math.cos(@angle)
+    @y = @y + @velocity*Math.sin(@angle)
     @shape.x = @x
     @shape.y = @y
+    @velocity *= 0.97
+
 
     if hit_bottom? || hit_top?
       @velocity = -@velocity
@@ -35,7 +37,6 @@ class Ball
   def hit_top?
     @y <= 0
    end
-
 end
 
 class Obstacle
@@ -70,7 +71,7 @@ on :mouse_up do |event|
   xu = event.x
   yu = event.y
 
-  golfball.velocity = Math.sqrt((xu-xd)^2+(yu-yd)^2)*0.5
+  golfball.velocity = Math.sqrt((xu-xd)^2+(yu-yd)^2)
   golfball.angle = Math.atan((yu-yd)/(xu-xd))
 
 
@@ -81,7 +82,6 @@ end
 update do
   golfball.move
 end
-
 
 
 show
