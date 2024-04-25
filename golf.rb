@@ -11,22 +11,31 @@ class Ball
   def initialize(x_init, y_init)
     @x = x_init
     @y = y_init
-    @velocity = 0;
-    @angle = 0;
+    @xv = 0
+    @yv = 0
+    @velocity = 0
+    @angle = 0
     @shape = Circle.new(x: @x, y: @y,
     radius: HEIGHT, color: 'white')
   end
 
+  def shoot
+    @xv = @velocity*Math.cos(@angle)
+    @yv = @velocity*Math.sin(@angle)
+  end
+
   def move
-    @x = @x + @velocity*Math.cos(@angle)
-    @y = @y + @velocity*Math.sin(@angle)
+    @x = @x + @xv # @velocity*Math.cos(@angle)
+    @y = @y + @yv  #@velocity*Math.sin(@angle)
+
     @shape.x = @x
     @shape.y = @y
-    @velocity *= 0.97
+    @xv *= 0.97
+    @yv *= 0.97
 
 
     if hit_bottom? || hit_top?
-      @velocity = -@velocity
+      @yv = -@yv
     end
   end
 
@@ -40,6 +49,12 @@ class Ball
 end
 
 class Obstacle
+  attr_accessor :x, :y
+  def initialize(x_init, y_init)
+    @x = x_init
+    @y = y_init
+    @rectangle = Rectangle.new(x: @x, y: @y, height: 250, width: 90, color: 'red')
+  end
 end
 
 class Hole
@@ -53,6 +68,7 @@ end
 
 golfball = Ball.new(300,300)
 hole = Hole.new(400,400)
+rectangle = Obstacle.new(500, 200)
 
 xd = 0
 yd = 0
@@ -71,11 +87,10 @@ on :mouse_up do |event|
   xu = event.x
   yu = event.y
 
-  golfball.velocity = Math.sqrt((xu-xd)^2+(yu-yd)^2)
-  golfball.angle = Math.atan((yu-yd)/(xu-xd))
+  golfball.velocity = Math.sqrt((xu-xd)**2 + (yu-yd)**2) * 0.25
+  golfball.angle = Math.atan2(yu-yd, xu-xd) + Math::PI
 
-
-
+  golfball.shoot
 end
 
 
