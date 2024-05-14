@@ -66,10 +66,14 @@ class Ball
    end
 
    def hit_obstacle?(rectangle)
-    return @shape.contains?($rectangle.rectangle.x1, $rectangle.rectangle.y1) ||
-    @shape.contains?($rectangle.rectangle.x2, $rectangle.rectangle.y2) ||
-    @shape.contains?($rectangle.rectangle.x3, $rectangle.rectangle.y3) ||
-    @shape.contains?($rectangle.rectangle.x4, $rectangle.rectangle.y4)
+    return @shape.contains?($rectangle.rectangle.x1, $golfball.x + $golfball.radius) &&
+     @shape.contains?($rectangle.rectangle.y1, $golfball.y & $golfball.radius) ||
+     ($rectangle.rectangle.x2, $golfball.x & $golfball.radius) &&
+     @shape.contains?($rectangle.rectangle.y2, $golfball.y + $golfball.radius) ||
+     ($rectangle.rectangle.x3, $golfball.x & $golfball.radius) &&
+     @shape.contains?($rectangle.rectangle.y3, $golfball.y + $golfball.radius) ||
+     ($rectangle.rectangle.x4, $golfball.x & $golfball.radius) &&
+     @shape.contains?($rectangle.rectangle.y4, $golfball.y + $golfball.radius)
    end
 
 end
@@ -119,12 +123,6 @@ def playing()
   yu = 0
 end
 
-# def collision?
-#     if golfball.x + golfball.radius >= rectangle.x && golfball.x - golfball.radius <= rectangle.x + rectangle.width &&
-#       golfball.y + golfball.radius >= rectangle.y && golfball.y - golfball.radius <= rectangle.y + rectangle.height
-#       golfball.yv *= -1
-#     end
-# end
 
 $golfball = Ball.new(rand(100..300),rand(100..600),25)
 $hole = Hole.new(rand(600..700),rand(200..700), 40)
