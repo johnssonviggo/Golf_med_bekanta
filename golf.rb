@@ -144,7 +144,7 @@ on :key_up do |event|
     playing()
   end
 end
-
+i = 0
 on :mouse_up do |event|
   xu = event.x
   yu = event.y
@@ -153,7 +153,20 @@ on :mouse_up do |event|
   $golfball.angle = Math.atan2(yu-yd, xu-xd) + Math::PI
   $golfball.shoot
 
+  i += 1
+  p i
+
+  # Text.new(
+  #   i,
+  #   y: 100,
+  #   x: 100,
+  #   style: 'bold',
+  #   size: 100,
+  #   color: 'gray',
+  # )
+
 end
+
 
 update do
   $golfball.move
