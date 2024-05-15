@@ -65,16 +65,16 @@ class Ball
     @x + @radius >= Window.width
    end
 
-   def hit_obstacle?(rectangle)
-    return @shape.contains?($rectangle.rectangle.x1, $golfball.x + $golfball.radius) &&
-     @shape.contains?($rectangle.rectangle.y1, $golfball.y & $golfball.radius) ||
-     ($rectangle.rectangle.x2, $golfball.x & $golfball.radius) &&
-     @shape.contains?($rectangle.rectangle.y2, $golfball.y + $golfball.radius) ||
-     ($rectangle.rectangle.x3, $golfball.x & $golfball.radius) &&
-     @shape.contains?($rectangle.rectangle.y3, $golfball.y + $golfball.radius) ||
-     ($rectangle.rectangle.x4, $golfball.x & $golfball.radius) &&
-     @shape.contains?($rectangle.rectangle.y4, $golfball.y + $golfball.radius)
-   end
+  #  def hit_obstacle?(rectangle)
+  #   return @shape.contains?($rectangle.rectangle.x1, $golfball.x + $golfball.radius) &&
+  #    @shape.contains?($rectangle.rectangle.y1, $golfball.y + $golfball.radius) ||
+  #    ($rectangle.rectangle.x2, $golfball.x + $golfball.radius) &&
+  #    @shape.contains?($rectangle.rectangle.y2, $golfball.y + $golfball.radius) ||
+  #    ($rectangle.rectangle.x3, $golfball.x + $golfball.radius) &&
+  #    @shape.contains?($rectangle.rectangle.y3, $golfball.y + $golfball.radius) ||
+  #    ($rectangle.rectangle.x4, $golfball.x + $golfball.radius) &&
+  #    @shape.contains?($rectangle.rectangle.y4, $golfball.y + $golfball.radius)
+  #  end
 
 end
 
@@ -85,8 +85,6 @@ class Obstacle
     @y = y_init
     @rectangle = Rectangle.new(x: @x, y: @y, height: 350, width: 90, color: 'red')
   end
-
-
 end
 
 class Hole
@@ -161,20 +159,20 @@ update do
   $golfball.move
 
   if $hole.radius > Math.sqrt(($hole.x - $golfball.x)**2 + ($hole.y - $golfball.y)**2)
-    you_win = Text.new(
-      'YOU WIN',
-      y: 100,
-      style: 'bold',
-      size: 70)
-    you_win.x = (Window.width - you_win.width)/2
+    # you_win = Text.new(
+      # 'YOU WIN',
+      # y: 100,
+      # style: 'bold',
+      # size: 70)
+    # you_win.x = (Window.width - you_win.width)/2
 
     playing()
 
   end
 
-  if $golfball.hit_obstacle?($rectangle) || $golfball.hit_obstacle?($rectangle)
+  # if $golfball.hit_obstacle?($rectangle) || $golfball.hit_obstacle?($rectangle)
 
-  end
+  # end
 
 end
 
