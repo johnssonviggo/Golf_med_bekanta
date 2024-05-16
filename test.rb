@@ -235,6 +235,6 @@ update do
   end
 end
 
-playing # Startar spelet
+playing # 
 
 show # Visar spelet

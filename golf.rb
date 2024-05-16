@@ -125,6 +125,10 @@ def playing
   $golfball.x = rand(100..300)
   $golfball.y = rand(100..600)
 
+  $golfball.yv = 0
+  $golfball.xv = 0
+  $golfball.velocity = 0
+
   # SÄTTER RANDOM POSITION PÅ HÅLET
   $hole.x = rand(600..700)
   $hole.y = rand(200..700)
@@ -138,14 +142,6 @@ def playing
   $you_win_text.remove if $you_win_text # TAR BORT "DU VANN" TEXT
   $play_again_button.remove if $play_again_button # TAR BORT KNAPPEN
   $play_again_text.remove if $play_again_text # TAR BORT TEXTEN
-
-  xd = 0
-  yd = 0
-  xu = 0
-  yu = 0
-
-  $golfball.velocity = 0
-
 end
 
 # FUNKTION FÖR VINSTSKÄRMEN
@@ -178,9 +174,6 @@ def show_win_screen
     color: 'white'
   )
 end
-
-
-
 
 # SKAPAR EN NY BOLL, HÅL OCH HINDER
 $golfball = Ball.new(rand(100..300),rand(100..600),25)
@@ -257,6 +250,13 @@ end
 
 
 show # VISAR SPELET
+
+
+
+
+
+
+
 
 
 # GAMMAL KOD SOM JAG INTE VILL TA BORT
